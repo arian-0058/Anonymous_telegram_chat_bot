@@ -1,0 +1,115 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "telegram-anonymous-chat-bot"
+version = "0.4.2"
+description = "Anonymous ChatBot"
+authors = ["Th3Kanashii <Th3Kanashii@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.4.1"
+aiogram-i18n = "^1.4"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+fluent-runtime = "^0.4.0"
+pydantic-settings = "^2.2.1"
+sqlalchemy = "^2.0.28"
+cachetools = "^5.3.3"
+aiohttp-socks = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.2"
+mypy = "^1.9.0"
+
+[tool.ruff]
+cache-dir = ".cache/ruff"
+line-length = 99
+output-format = "full"
+preview = true
+show-fixes = true
+exclude = [
+    ".git",
+    ".venv",
+    ".idea",
+    ".tests",
+    ".cache",
+    "build",
+    "dist",
+    "scripts",
+    "migrations"
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "ALL"
+]
+extend-select = [
+    "ANN204" # missing-return-type-special-method
+]
+ignore = [
+    "D", # pydocstyle
+    "CPY", # flake8-copyright
+    "FA", # flake8-future-annotations
+    "ANN", # flake8-annotations
+    "EM", # flake8-errmsg
+    "ICN", # flake8-import-conventions
+    "TRY003", # raise-vanilla-args
+    "PLR6301", # no-self-use
+    "PLR0904", # too-many-public-methods
+    "PLR0911", # too-many-return-statements
+    "PLR0912", # too-many-branches
+    "PLR0913", # too-many-arguments
+    "PLR0914", # too-many-locals
+    "PLR0915", # too-many-statements
+    "PLR0916", # too-many-boolean-expressions
+    "PLR0917", # too-many-positional
+    "PLR1702" # too-many-nested-blocks
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+force-wrap-aliases = true
+combine-as-imports = true
+
+[tool.ruff.lint.pylint]
+allow-magic-value-types = []
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
+[tool.ruff.per-file-ignores]
+"bot/handlers/common/menu.py" = ["E501"]
+"bot/handlers/callbacks/profile.py" = ["E501"]
+"bot/keyboards/inline/inline.py" = ["E501"]
+"bot/handlers/common/top.py" = ["RUF001"]
+"bot/services/database/repositories/user.py" = ["RUF001", "FBT001", "FBT002"]
+
+[tool.mypy]
+python_version = "3.8"
+cache_dir = ".cache/mypy"
+strict = true
+show_error_context = true
+show_column_numbers = true
+pretty = true
+plugins = [
+    "pydantic.mypy",
+    "sqlalchemy.ext.mypy.plugin"
+]
+exclude = [
+    ".git",
+    ".venv",
+    ".idea",
+    ".tests",
+    ".cache",
+    "build",
+    "dist",
+    "scripts",
+    "migrations"
+]
